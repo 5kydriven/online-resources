@@ -1,0 +1,37 @@
+.me-auto {
+    margin-left: auto !important;
+    margin-right: 0 !important;
+}
+
+.icon {
+    width: 40px;
+}
+
+.image {
+    width: 400px;
+}
+
+.sign-con{
+    place-items: center;
+    height: 90vh;
+}
+
+.form-container {
+    border: 1px solid black;
+    border-radius: 3px;
+    padding: 2em 1.5em;
+    width: 25em;
+}
+
+.s-form {
+    gap: 15px;
+}
+
+.error {
+    border: 2px solid rgba(223,64,90,.5);
+    background-color:  rgba(223,64,90,.1);
+    color:  #f75f78;
+    border-radius: 4px;
+    padding: 8px;
+    text-align: center;
+}
