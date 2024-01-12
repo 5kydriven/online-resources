@@ -3,8 +3,6 @@
 
    $query = mysqli_query($conn, "SELECT * FROM `user`");
 
-  
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,11 +11,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.0.1/remixicon.min.css" />
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      href="../lib/css/bootstrap.min.css"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../src/css/style.css" />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../lib/js/bootstrap.min.js"></script>
     <title>Sign in</title>
   </head>
   <body>
@@ -125,7 +123,7 @@
                         </div>
                       </div>
                     </div>
-   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+   <script src="../lib/js/jquery.min.js"></script>
     <script>
       // edit data
       $(document).ready(function() {
