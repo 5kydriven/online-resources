@@ -56,10 +56,10 @@
                 <?php if (isset($_GET['error'])) {?>
                   <strong class="error"><?php echo $_GET['error']; ?></strong>
                 <?php } ?>
-                <input type="text" placeholder="name" name="name">
-                <input type="email" placeholder="Enter email" name="email">
-                <input type="password" placeholder="Enter password" name="password">
-                <input type="text" placeholder="gender" name="gender">
+                <input type="text" placeholder="name" name="name" required>
+                <input type="email" placeholder="Enter email" name="email" required>
+                <input type="password" placeholder="Enter password" name="password" required>
+                <input type="text" placeholder="gender" name="gender" required>
                 <button class="btn btn-success mt-3" name="signup">Sign up</button>
                 <label for="">have an account? <a href="signin.php">Sign in</a></label>
             </form>
