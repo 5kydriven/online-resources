@@ -67,7 +67,7 @@
                         <th>Name</th>
                         <th>Email</th>
                         <th>Gender</th>
-                        <!-- <th>Actions</th> -->
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -75,14 +75,14 @@
                       while($row = $query->fetch_assoc()) {
                     ?>
                     <tr>
-                        <td><?= $row['id']; ?></td>
+                        <td class="user_id"><?= $row['id']; ?></td>
                         <td><?= $row['name']; ?></td>
                         <td><?= $row['email']; ?></td>
                         <td><?= $row['gender']; ?></td>
-                        <!-- <td class="d-flex justify-content-evenly">
-                            <button class="btn btn-success edit-button" type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="<?= $row['id']; ?>"><i class="ri-edit-line"></i></button>
-                            <button class="btn btn-danger "><i class="ri-delete-bin-6-line"></i></button>
-                        </td> -->
+                        <td class="d-flex justify-content-evenly">
+                            <button class="btn btn-success edit-button" type="button"  data-bs-toggle="modal" data-bs-target="#editModal"><i class="ri-edit-line"></i></button>
+                            <button class="btn btn-danger delete_btn"><i class="ri-delete-bin-6-line"></i></button>
+                        </td>
 
                     </tr>
                     
@@ -92,64 +92,93 @@
         </div>
    </div>
    <!-- Modal -->
-   <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
                       <div class="modal-dialog">
                         <div class="modal-content">
                           <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                            <h1 class="modal-title fs-5" id="editModalLabel">Modal title</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
-                          <div class="modal-body">
-                            <form action="" class="d-flex flex-column gap-3">
+                          <form action="../php/update.php" method="post" class="">
+                            <div class="modal-body d-flex flex-column gap-3">
+                              <div class="input-group flex-nowrap">                                
+                                <input type="hidden" class="form-control" id="user_id" name="id">
+                              </div>
                               <div class="input-group flex-nowrap">
                                 <span class="input-group-text" id="addon-wrapping1">Name:</span>
-                                <input type="text" class="form-control " aria-label="Username" aria-describedby="addon-wrapping1" value="<?= $row['name']; ?>">
+                                <input type="text" class="form-control" id="name" name="name" aria-label="Username" aria-describedby="addon-wrapping1">
                               </div>
                               <div class="input-group flex-nowrap">
                                 <span class="input-group-text" id="addon-wrapping2">Email:</span>
-                                <input type="text" class="form-control" aria-label="email" aria-describedby="addon-wrapping2">
+                                <input type="text" class="form-control" id="email" name="email" aria-label="email" aria-describedby="addon-wrapping2">
                               </div>
                               <div class="input-group flex-nowrap">
                                 <span class="input-group-text" id="addon-wrapping3">Gender:</span>
-                                <input type="text" class="form-control" aria-label="email" aria-describedby="addon-wrapping3">
+                                <input type="text" class="form-control" id="gender" name="gender" aria-label="email" aria-describedby="addon-wrapping3">
                               </div>
-                            </form>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                          </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                              <button type="submit" name="update_data" class="btn btn-primary">Save changes</button>
+                            </div>
+                          </form>
                         </div>
                       </div>
-                    </div> -->
-   <!-- <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+                    </div>
+   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
+      // edit data
       $(document).ready(function() {
-        $('.edit-btn').on('click', function() {
+        $('.edit-button').click(function(e) {
+          e.preventDefault();
           // Get the user ID from the data-id attribute
-          var userId = $(this).data('id');
+          var userId = $(this).closest('tr').find('.user_id').text();
 
           // Ajax request to fetch user details based on the user ID
           $.ajax({
-            url: 'get_user_details.php', // replace with your server-side script to fetch user details
-            method: 'GET',
-            data: { id: userId },
-            dataType: 'json',
+            method: 'POST',
+            url: '../php/update.php', // replace with your server-side script to fetch user details
+            data: { 
+              'click_edit_button': true,
+              'user_id': userId
+            },           
             success: function(response) {
+              // console.log(response);
               // Populate modal fields with retrieved user details
-              $('#exampleModalLabel').html('Edit User: ' + response.name);
-              $('#addon-wrapping1').val(response.name);
-              $('#addon-wrapping2').val(response.email);
-              $('#addon-wrapping3').val(response.gender);
-              $('#exampleModal').modal('show');
-            },
-            error: function() {
-              alert('Error fetching user details.');
+              
+              $.each(response, function (key, value) {
+                  $('#user_id').val(value['id']);
+                  $('#name').val(value['name']);
+                  $('#email').val(value['email']);
+                  $('#gender').val(value['gender']);
+                });
+
+              $('#editModal').modal('show');
             }
           });
         });
       });
-    </script> -->
+
+      $(document).ready(function () {
+        $('.delete_btn').click(function (e) {
+          e.preventDefault();
+          
+          var user_id = $(this).closest('tr').find('.user_id').text();
+          $.ajax({
+            method: 'POST',
+            url: '../php/delete.php',
+            data: {
+              'click_delete_button': true,
+              'user_id': user_id,
+            },
+            success: function (response) {
+              console.log(response)
+              window.location.reload();
+            }
+          });
+        });
+      });
+    </script>
       
   </body>
 </html>
