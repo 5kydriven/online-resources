@@ -1,21 +1,24 @@
+<?php
+  include '../php/connect.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
-      href="assets/lib/css/bootstrap.min.css"
+      href="../lib/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="assets/src/css/style.css" />
-    <script src="assets/lib/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="../src/css/style.css" />
+    <script src="../lib/js/bootstrap.bundle.min.js"></script>
     <title>Home</title>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container">
         <img
-          src="assets/images/laptop-in-side-view-perspective.png"
+          src="../images/laptop-in-side-view-perspective.png"
           alt=""
           class="icon me-2"
         />
@@ -33,34 +36,44 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li>
             <!-- <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="assets/pages/lessons.html">Lessons</a>
-            </li> -->
+              <a class="nav-link "  href="../../index.html">Home</a>
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="#">About</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Contact</a>
-            </li>
+            </li> -->
             <li class="nav-item">
-              <a class="nav-link" href="assets/pages/signin.php">Sign in</a>
+              <a class="nav-link" href="../../index.html">logout</a>
             </li>
           </ul>
         </div>
       </div>
     </nav>
-    <div class="container d-flex p-5 justify-content-between align-items-center">
-        <div class="text-container w-50">
-            <h1 class="mb-3">Online Learning Resources</h1>
-            <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius doloremque sequi at, quis blanditiis odio repellendus itaque maiores dolorum. Assumenda libero accusamus laborum nisi temporibus consequuntur, maiores velit molestias quidem!</p>
-            <button class="btn btn-info rounded-pill">Get Started</button>
+    <div class="container" id="lesson-container">
+        <div class="project__title">
+            <h1>Lessons</h1>
+            <div class="project__underline"></div>
         </div>
-        <div class="img-container">
-            <img src="assets/images/pngwing.com.png" alt="" class="image">
+        <div class="project__container">
+          <?php 
+            $query = mysqli_query($conn, "SELECT * FROM lesson");
+
+            while($row = mysqli_fetch_assoc($query)) {
+          ?>
+          <div class="card" style="width: 21rem;">
+            <img src="../uploads/<?= $row['image'];?>" class="card-img-top" alt="">
+            <div class="card-body">
+              <h5 class="card-title"><?= $row['title']?></h5>
+              <p class="card-text"><?= $row['content']?></p>
+              <a href="<?= $row['link']?>" class="btn btn-primary" target="_blank">visit site</a>
+            </div>
+          </div>  
+          <?php } ?>       
         </div>
     </div>
+    
   </body>
 </html>

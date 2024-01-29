@@ -35,3 +35,43 @@
     padding: 8px;
     text-align: center;
 }
+
+#lesson-container {
+    padding-top: 1.5em;
+}
+
+.project__title h1 {
+    margin-bottom: 1.38rem;
+}
+
+.project__title {
+    width: 100%;
+    text-align: center;
+}
+
+.project__underline {
+    height: 0.2rem;
+    width: 7rem;
+    background: #f0db51;
+    margin: -1rem auto 0px;
+}
+
+.project__container {
+    width: 90vw;
+    margin: 0px auto;
+    display: grid;
+    gap: 3rem 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+    margin-top: 3em;
+    margin-bottom: 3em;
+}
+
+.admin_container {
+    width: 90vw;
+    margin: 0px auto;
+    display: grid;
+    gap: 3rem 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    margin-top: 2em;
+    margin-bottom: 3em;
+}
